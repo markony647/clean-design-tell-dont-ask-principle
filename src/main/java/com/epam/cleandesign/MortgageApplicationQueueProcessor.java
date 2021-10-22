@@ -21,22 +21,8 @@ public class MortgageApplicationQueueProcessor {
         if (customer == null) {
             throw new WrongDataException(MESSAGE_INVALID_CUSTOMER);
         }
-
-        if (isEligibleForMortgage(customer, amountRequested)) {
-            customer.updateBalance(amountRequested);
-        } else {
-            throw new NotEligibleForMortgageException();
-        }
+        customer.updateBalance(amountRequested);
     }
 
-    private boolean isEligibleForMortgage(Customer customer, Double amountRequested) {
-        boolean isEligibleForMortgage = false;
-
-        if (customer.getBadCreditHistoryCount() == 0 && customer.getBalance() > 0) {
-            isEligibleForMortgage = customer.getBalance() * 2 >= amountRequested;
-        }
-
-        return isEligibleForMortgage;
-    }
 
 }
