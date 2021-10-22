@@ -22,6 +22,11 @@ public class Customer {
         this.badCreditHistoryCount = badCreditHistoryCount;
     }
 
+    public void updateBalance(Double amount) {
+        validateEligibilityForMortgage(amount);
+        balance = balance + amount;
+    }
+
     public void validateEligibilityForMortgage(Double amountRequested) {
         if (hasBadCreditHistory() || isRequestedAmountTooBig(amountRequested) || hasNegativeBalance()) {
             throw new NotEligibleForMortgageException();
@@ -38,11 +43,6 @@ public class Customer {
 
     private boolean isRequestedAmountTooBig(Double amountRequested) {
         return getBalance() * 2 < amountRequested;
-    }
-
-    public void updateBalance(Double amount) {
-        validateEligibilityForMortgage(amount);
-        balance = balance + amount;
     }
 
     public int getId() {
