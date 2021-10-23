@@ -6,6 +6,8 @@ import com.epam.cleandesign.exceptions.WrongDataException;
 
 public class MortgageApplicationQueueProcessor {
 
+    private static final String MESSAGE_INVALID_CUSTOMER = "Customer not found!";
+
     private final CustomerRepository customerRepository;
 
     public MortgageApplicationQueueProcessor(CustomerRepository customerRepository) {
@@ -16,7 +18,7 @@ public class MortgageApplicationQueueProcessor {
         Customer customer = customerRepository.get(customerId);
 
         if (customer == null) {
-            throw new WrongDataException();
+            throw new WrongDataException(MESSAGE_INVALID_CUSTOMER);
         }
         customer.updateBalance(amountRequested);
     }
